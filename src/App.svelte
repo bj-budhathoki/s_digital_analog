@@ -7,8 +7,12 @@
   let degitalTime;
 
   onMount(async () => {
-    let res = await fetch("/data.json");
+    let res = await fetch(
+      "http://10.10.99.200:8080/client/app/get-data/?appdata_id=0712e6fd-1d99-4962-9701-c0d90797f863"
+    );
     let data = await res.json();
+    dateFormat = data.appData.dateFormat;
+    response = data.appData;
     response = data;
     setDate();
   });
@@ -16,8 +20,8 @@
     if (response) {
       let currentDate = new Date()
         .toLocaleString(response.data.code, {
-          timeZone: response.data.timeZone,
-          hour12: response.timeFormat === "24 hours" ? true : false
+          timeZone: response.timeZone,
+          hour12: response.timeFormat === "12 Hours" ? true : false
         })
         .split(" ");
 
